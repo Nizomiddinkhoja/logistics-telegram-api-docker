@@ -1,0 +1,24 @@
+services:
+  telegram-api:
+    image: nizomiddinkhoja/truck-tj-telegram-api:${TAG:-latest}
+    container_name: telegram-api
+    restart: unless-stopped
+    ports:
+      # Открыт на всех IP сервера: http://<ip-сервера>:3100. Запросы под /api защищены X-Api-Key
+      - "3100:3100"
+    env_file: .env
+    environment:
+      # Перекрывают HOST/PORT из .env: внутри контейнера всегда 0.0.0.0:3100
+      - HOST=0.0.0.0
+      - PORT=3100
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - truck-tj-net
+
+networks:
+  truck-tj-net:
+    driver: bridge

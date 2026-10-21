@@ -1,0 +1,3 @@
+/.idea
+# Токены бота и Gateway — не коммитить, шаблон в .env.example
+.env
